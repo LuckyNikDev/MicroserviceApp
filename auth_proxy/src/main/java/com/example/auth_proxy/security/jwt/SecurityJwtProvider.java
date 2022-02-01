@@ -51,7 +51,7 @@ public class SecurityJwtProvider {
 	}
 
 	public String resolveToken(HttpServletRequest request) {
-		String token = request.getHeader("Authorization");
+		String token = request.getHeader(authorizationHeader);
 		if (token != null) {
 			return token;
 		}

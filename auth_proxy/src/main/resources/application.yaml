@@ -10,7 +10,25 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:liquibase/db.changelog-master.xml
+  main:
+    application:
+      name: proxy
+
+zuul:
+  routes:
+    first:
+      url: http://localhost:8081/
+      path: /first/**
+    second:
+      url: http://localhost:8082/
+      path: /second/**
+
+
 jwt:
   secret: "randomPhrase"
   header: "Authorization"
   expiration: "1800000"
+
+
+server:
+  port: 8080

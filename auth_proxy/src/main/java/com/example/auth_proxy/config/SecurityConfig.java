@@ -17,7 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] WHITELIST = {
 			"/auth/login",
-			"/auth/create_user"
+			"/auth/create_user",
+			"/first/**",
+			"/second/**"
 	};
 
 	private static final String[] ONLYADMIN = {

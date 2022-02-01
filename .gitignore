@@ -5,3 +5,11 @@ auth_proxy/mvnw.cmd
 auth_proxy/.mvn
 auth_proxy/auth_proxy.iml
 auth_proxy/target
+first_microservice/.mvn
+first_microservice/HELP.md
+first_microservice/mvnw.cmd
+first_microservice/mvnw
+second_microservice/.mvn
+second_microservice/HELP.md
+second_microservice/mvnw.cmd
+second_microservice/mvnw
