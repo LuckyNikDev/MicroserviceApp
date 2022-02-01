@@ -1,0 +1,7 @@
+.idea
+auth_proxy/HELP.md
+auth_proxy/mvnw
+auth_proxy/mvnw.cmd
+auth_proxy/.mvn
+auth_proxy/auth_proxy.iml
+auth_proxy/target

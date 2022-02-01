@@ -1,0 +1,155 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="1.0.0" author="developer">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="firstname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lastname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="developer">
+        <createTable tableName="roles">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.2" author="developer">
+        <createTable tableName="permissions">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.3" author="developer">
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="users"
+                                 constraintName="fk_user_roles_users"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="roles"/>
+    </changeSet>
+
+    <changeSet id="1.0.4" author="developer">
+        <createTable tableName="roles_permissions">
+            <column name="role_id" type="int">
+            </column>
+
+            <column name="permission_id" type="int">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.5" author="developer">
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="roles_permissions"
+                                 constraintName="fk_roles_permissions_roles"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="roles"/>
+    </changeSet>
+
+    <changeSet id="1.0.6" author="developer">
+        <addForeignKeyConstraint baseColumnNames="permission_id"
+                                 baseTableName="roles_permissions"
+                                 constraintName="fk_roles_permissions_permissions"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="permissions"/>
+    </changeSet>
+
+    <changeSet id="1.0.7" author="developer">
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.8" author="developer">
+        <insert tableName="users">
+            <column name="email" value="admin@mail.ru"/>
+            <column name="firstname" value="Admin"/>
+            <column name="lastname" value="Adminov"/>
+            <column name="password" value="$2a$12$F54tyRgK45.pYf7AveLPreK2cMJDwkiYMCwdpIw3tDcI0cye70mi6"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="name" value="read"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="name" value="write"/>
+        </insert>
+
+        <insert tableName="roles_permissions">
+            <column name="role_id" value="1"/>
+            <column name="permission_id" value="1"/>
+        </insert>
+
+        <insert tableName="roles_permissions">
+            <column name="role_id" value="2"/>
+            <column name="permission_id" value="1"/>
+        </insert>
+
+        <insert tableName="roles_permissions">
+            <column name="role_id" value="2"/>
+            <column name="permission_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
